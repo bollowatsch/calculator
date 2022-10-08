@@ -1,14 +1,21 @@
 const display = document.querySelector(".display");
+const btnCl = document.querySelector("#btn-cl");
 const buttons = document.querySelectorAll(".btn-number");
 
-let displayContent = 0, firstOperand, secondOperand;
+let firstOperand, secondOperand;
 
 
 for (btn of buttons) btn.addEventListener("click", (e) => {
-  displayContent = parseFloat(displayContent.toString().concat(e.target.dataset.id));
-  updateDisplay();
+  display.innerText = display.innerText.concat(e.target.dataset.id);
 });
 
+btnCl.addEventListener("click", clearDisplay);
+/*btnAdd.addEventListener("click",)
+<btnSubtract.addEventListener("click",)
+btnMultiply.addEventListener("click",)
+btnDivide.addEventListener("clcik",)
+btnEquals.addEventListener("click",)
+*/
 function add(a, b) { return a + b };
 function subtract(a, b) { return a - b };
 function multiply(a, b) { return a * b; };
@@ -24,4 +31,5 @@ function operate(operator, a, b) {
   }
 }
 
-function updateDisplay() { display.innerText = displayContent; }
+function clearDisplay() { display.innerText = ""; }
+function numberIsValid(num) { return parseFloat(num).toString() === num }
