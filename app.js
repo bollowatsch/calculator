@@ -1,6 +1,6 @@
 const display = document.querySelector(".display");
 const btnCl = document.querySelector("#btn-cl");
-const btnsOperand = document.querySelectorAll(".btn-oeprand");
+const btnsOperand = document.querySelectorAll(".btn-operand");
 const btnsOperator = document.querySelectorAll(".btn-operator");
 
 // +++ add EventListeners to all buttons +++
