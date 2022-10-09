@@ -23,7 +23,18 @@ function Calculation(firstOperand, secondOperand, operation, result, finished) {
     this.secondOperand = secondOperand,
     this.operation = operation,
     this.result = result,
-    this.finished = finished
+    this.finished = finished,
+
+    function operate(operator, firstOperand, secondOperand) {
+      if (!(numberIsValid(firstOperand) && numberIsValid(secondOperand))) return NaN;
+      switch (operator) {
+        case add: return add(firstOperand, secondOperand);
+        case subtract: return subtract(firstOperand, secondOperand);
+        case multiply: return multiply(firstOperand, secondOperand);
+        case divide: return divide(firstOperand, secondOperand);
+        default: break;
+      }
+    }
 };
 
 function add(a, b) { return a + b };
@@ -31,17 +42,6 @@ function subtract(a, b) { return a - b };
 function multiply(a, b) { return a * b; };
 function divide(a, b) { return a / b };
 function equals() { }
-
-function operate(operator, a, b) {
-  if (!(numberIsValid(a) && numberIsValid(b))) return NaN;
-  switch (operator) {
-    case add: return add(a, b);
-    case subtract: return subtract(a, b);
-    case multiply: return multiply(a, b);
-    case divide: return divide(a, b);
-    default: break;
-  }
-}
 
 let calculationHistory = [];
 calculationHistory.push(new Calculation());
