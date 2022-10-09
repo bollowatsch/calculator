@@ -3,8 +3,9 @@ body {
 }
 
 h1 {
-  margin: auto;
+  margin: 40px auto 40px;
   width: fit-content;
+
 }
 
 .calculator {
