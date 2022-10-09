@@ -30,7 +30,7 @@ function add(a, b) { return a + b };
 function subtract(a, b) { return a - b };
 function multiply(a, b) { return a * b; };
 function divide(a, b) { return a / b };
-// TODO: function equals() {this.equals = }
+function equals() { }
 
 function operate(operator, a, b) {
   if (!(numberIsValid(a) && numberIsValid(b))) return NaN;
