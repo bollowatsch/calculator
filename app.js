@@ -8,9 +8,8 @@ for (btn of btnsOperand) btn.addEventListener("click", (e) => {
   display.innerText = display.innerText.concat(e.target.dataset.id);
 });
 
-for (btn of btnsOperator) btn.addEventListener("click", (e) => {
-  display.innerText = display.innerText.concat(e.target.dataset.id);
-});
+//calls function based on name of dataset.id
+for (btn of btnsOperator) btn.addEventListener("click", window[btn.dataset.id]);
 
 //clear Display and create new Calculation. Either save the last one (if result could be determined) or overwrite, if not
 btnCl.addEventListener("click", () => {
@@ -31,6 +30,7 @@ function add(a, b) { return a + b };
 function subtract(a, b) { return a - b };
 function multiply(a, b) { return a * b; };
 function divide(a, b) { return a / b };
+// TODO: function equals() {this.equals = }
 
 function operate(operator, a, b) {
   if (!(numberIsValid(a) && numberIsValid(b))) return NaN;
