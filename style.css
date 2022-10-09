@@ -1,0 +1,17 @@
+.button-container,
+display-container {
+  width: 250px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
+.display.container {
+  grid-template-areas: auto auto;
+}
+
+button {
+  aspect-ratio: 1;
+  width: 50px;
+  background-color: antiquewhite;
+  border-radius: 50% 50%;
+}
