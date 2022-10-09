@@ -7,3 +7,4 @@
 - prevent overflow with rounding
 - keyboard support
 - error throwing/catching for dividing by zero
+- resize display text if it overflows
