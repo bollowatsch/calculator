@@ -1,20 +1,10 @@
 const display = document.querySelector(".display");
 const btnCl = document.querySelector("#btn-cl");
-const btnsNumber = document.querySelectorAll(".btn-number");
+const btnsOperand = document.querySelectorAll(".btn-oeprand");
 const btnsOperator = document.querySelectorAll(".btn-operator");
 
-function Calculation(firstOperand, secondOperand, operation, result) {
-  this.firstOperand = firstOperand,
-    this.secondOperand = secondOperand,
-    this.operation = operation,
-    this.result = result
-};
-
-let calculationHistory = [];
-calculationHistory.push(new Calculation());
-
-
-for (btn of btnsNumber) btn.addEventListener("click", (e) => {
+// +++ add EventListeners to all buttons +++
+for (btn of btnsOperand) btn.addEventListener("click", (e) => {
   display.innerText = display.innerText.concat(e.target.dataset.id);
 });
 
@@ -27,12 +17,16 @@ btnCl.addEventListener("click", () => {
   clearDisplay();
   calculationHistory[calculationHistory.length - 1].result === undefined ? calculationHistory[calculationHistory.length - 1] = new Calculation() : calculationHistory.push(new Calculation);
 });
-/*btnAdd.addEventListener("click",)
-<btnSubtract.addEventListener("click",)
-btnMultiply.addEventListener("click",)
-btnDivide.addEventListener("clcik",)
-btnEquals.addEventListener("click",)
-*/
+
+//Calculation class for all calculations, including historic calculations for chained calculations
+function Calculation(firstOperand, secondOperand, operation, result, finished) {
+  this.firstOperand = firstOperand,
+    this.secondOperand = secondOperand,
+    this.operation = operation,
+    this.result = result,
+    this.finished = finished
+};
+
 function add(a, b) { return a + b };
 function subtract(a, b) { return a - b };
 function multiply(a, b) { return a * b; };
@@ -48,6 +42,19 @@ function operate(operator, a, b) {
     default: break;
   }
 }
+
+let calculationHistory = [];
+calculationHistory.push(new Calculation());
+
+
+
+/*btnAdd.addEventListener("click",)
+<btnSubtract.addEventListener("click",)
+btnMultiply.addEventListener("click",)
+btnDivide.addEventListener("clcik",)
+btnEquals.addEventListener("click",)
+*/
+
 
 function clearDisplay() { display.innerText = ""; }
 function numberIsValid(num) { return parseFloat(num).toString() === num }
