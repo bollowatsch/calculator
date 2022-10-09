@@ -14,7 +14,7 @@ function Calculation(firstOperand, secondOperand, operator, result, finished) {
 
     this.operate = function () {
       if (!(numberIsValid(this.firstOperand) && numberIsValid(this.secondOperand))) return NaN;
-      this.result = window[this.operator]();
+      this.result = window[this.operator](this.firstOperand, this.secondOperand);
       console.table(calculationHistory.at(-1));
       /* deprecated
       switch (this.operator) {
@@ -37,31 +37,35 @@ for (btn of btnsOperand) btn.addEventListener("click", (e) => {
 
 //calls function based on name of dataset.id
 //Array.at(-1) returns last element of array
-for (btn of btnsOperator) btn.addEventListener("click", () => {
+for (btn of btnsOperator) btn.addEventListener("click", (e) => {
   let currentCalc = calculationHistory.at(-1);
   // unsupported cases 
   if (display.innerText === "" || currentCalc.firstOperand !== undefined && currentCalc.secondOperand !== undefined) return;
 
-  //regular case: single calculation
+  //regular case: single calculation -- save number & operator, clear display
   else if (currentCalc.firstOperand === undefined && currentCalc.secondOperand === undefined) {
     calculationHistory.at(-1).firstOperand = parseFloat(display.innerText);
-    calculationHistory.at(-1).operator = btn.dataset.id;
-  } //regular case: chained calculation 
+    calculationHistory.at(-1).operator = e.target.dataset.id;
+    display.innerText = "";
+  } //regular case: chained calculation -- save number & calculate result. use result for next operation and save operator, clear display
   else if (currentCalc.firstOperand !== undefined && currentCalc.secondOperand === undefined) {
     calculationHistory.at(-1).secondOperand = parseFloat(display.innerText);
     calculationHistory.at(-1).operate;
-    calculationHistory.push(new Calculation(calculationHistory.at(-1).result, undefined, btn.dataset.id));
-    calculationHistory
+    calculationHistory.push(new Calculation(calculationHistory.at(-1).result, undefined, e.target.dataset.id));
+    display.innerText = "";
   }
 })
 
 btnEquals.addEventListener("click", () => {
+  calculationHistory.at(-1).secondOperand = parseFloat(display.innerText);
   calculationHistory.at(-1).operate();
+  calculationHistory.push(new Calculation);
+  display.innerText = "";
 })
 
 //clear Display and create new Calculation. Either save the last one (if result could be determined) or overwrite, if not
 btnCl.addEventListener("click", () => {
-  clearDisplay();
+  display.innerText = "";
   calculationHistory[calculationHistory.length - 1].result === undefined ? calculationHistory[calculationHistory.length - 1] = new Calculation() : calculationHistory.push(new Calculation);
 });
 
@@ -69,7 +73,6 @@ function add(a, b) { return a + b };
 function subtract(a, b) { return a - b };
 function multiply(a, b) { return a * b; };
 function divide(a, b) { return a / b };
-function equals() { }
 
 let calculationHistory = [];
 calculationHistory.push(new Calculation());
@@ -83,6 +86,4 @@ btnDivide.addEventListener("clcik",)
 btnEquals.addEventListener("click",)
 */
 
-
-function clearDisplay() { display.innerText = ""; }
-function numberIsValid(num) { return parseFloat(num).toString() === num }
+function numberIsValid(num) { return parseFloat(num.toString()) === num }
