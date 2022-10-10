@@ -10,7 +10,6 @@ function Calculation(firstOperand, secondOperand, operator, result, finished) {
     this.secondOperand = secondOperand,
     this.operator = operator,
     this.result = result,
-    this.finished = finished,
 
     this.operate = function () {
       if (!(numberIsValid(this.firstOperand) && numberIsValid(this.secondOperand))) return NaN;
