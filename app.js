@@ -15,15 +15,6 @@ function Calculation(firstOperand, secondOperand, operator, result, finished) {
       if (!(numberIsValid(this.firstOperand) && numberIsValid(this.secondOperand))) return NaN;
       this.result = window[this.operator](this.firstOperand, this.secondOperand);
       console.table(calculationHistory.at(-1));
-      /* deprecated
-      switch (this.operator) {
-        case 'add': this.result = add(this.firstOperand, this.secondOperand);
-        case 'subtract': this.result = subtract(this.firstOperand, this.secondOperand);
-        case 'multiply': this.result = multiply(this.firstOperand, this.secondOperand);
-        case 'divide': this.result = divide(this.firstOperand, this.secondOperand);
-        default: break;
-      }
-      */
     }
 };
 
@@ -75,14 +66,5 @@ function divide(a, b) { return a / b };
 
 let calculationHistory = [];
 calculationHistory.push(new Calculation());
-
-
-
-/*btnAdd.addEventListener("click",)
-<btnSubtract.addEventListener("click",)
-btnMultiply.addEventListener("click",)
-btnDivide.addEventListener("clcik",)
-btnEquals.addEventListener("click",)
-*/
 
 function numberIsValid(num) { return parseFloat(num.toString()) === num }
