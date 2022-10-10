@@ -49,8 +49,8 @@ for (btn of btnsOperator) btn.addEventListener("click", (e) => {
 btnEquals.addEventListener("click", () => {
   calculationHistory.at(-1).secondOperand = parseFloat(display.innerText);
   calculationHistory.at(-1).operate();
+  display.innerText = calculationHistory.at(-1).result;
   calculationHistory.push(new Calculation);
-  display.innerText = "";
 })
 
 //clear Display and create new Calculation. Either save the last one (if result could be determined) or overwrite, if not
