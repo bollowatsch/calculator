@@ -14,7 +14,6 @@ function Calculation(firstOperand, secondOperand, operator, result, finished) {
     this.operate = function () {
       if (!(numberIsValid(this.firstOperand) && numberIsValid(this.secondOperand))) return NaN;
       this.result = window[this.operator](this.firstOperand, this.secondOperand);
-      console.table(calculationHistory.at(-1));
     }
 };
 
