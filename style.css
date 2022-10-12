@@ -48,10 +48,10 @@ button {
   background-color: antiquewhite;
   border-radius: 30% 30%;
   margin: 0.2em 0.2em 0.2em 0.2em;
-  transition: scale 100ms;
+  transition-duration: .1s;
+  transition: all .1s ease-out;
 }
 
 button:active {
-  scale: 110%;
-  transition: all;
+  transform: scale(1.05);
 }
