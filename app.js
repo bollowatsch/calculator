@@ -24,6 +24,18 @@ for (btn of btnsOperand) btn.addEventListener("click", (e) => {
   display.innerText = display.innerText.concat(e.target.dataset.id);
 });
 
+document.addEventListener('keydown', (e) => {
+  let key = e.key;
+  if (Number.isInteger(parseInt(key)) || key === '.') {
+    if (key === "." && display.innerText.includes(".")) return;
+    else display.innerText = display.innerText.concat(key);
+  } else if (key == 'Enter') {
+    console.log("Enter")
+  } else if (['/', '+', '-', '*'].includes(key)) {
+    console.log(key);
+  }
+}, false);
+
 //calls function based on name of dataset.id
 //Array.at(-1) returns last element of array
 for (btn of btnsOperator) btn.addEventListener("click", (e) => {
