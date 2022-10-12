@@ -17,6 +17,8 @@ function Calculation(firstOperand, secondOperand, operator, result, finished) {
     }
 };
 
+let calculationHistory = [new Calculation()];
+
 // +++ add EventListeners to all buttons +++
 //change innerText of display, only store, when operator is pressed
 for (btn of btnsOperand) btn.addEventListener("click", (e) => {
@@ -30,25 +32,20 @@ document.addEventListener('keydown', (e) => {
   if (Number.isInteger(parseInt(key)) || key === '.') {
     if (key === "." && display.innerText.includes(".")) return;
     else display.innerText = display.innerText.concat(key);
-  } else if (key == 'Enter') {
-    console.log("Enter")
-  } else if (['/', '+', '-', '*'].includes(key)) {
+  }
+  else if (['/', '+', '-', '*', 'Enter'].includes(key)) {
     if (key === '+') evalOperator('add');
     if (key === '-') evalOperator('subtract');
     if (key === '*') evalOperator('multiply');
     if (key === '/') evalOperator('divide');
+    if (key === 'Enter') evalOperator('equals');
   }
 }, false);
 
 
 for (btn of btnsOperator) btn.addEventListener("click", (e) => evalOperator(e.target.dataset.id));
 
-btnEquals.addEventListener("click", () => {
-  calculationHistory.at(-1).secondOperand = parseFloat(display.innerText);
-  calculationHistory.at(-1).operate();
-  display.innerText = calculationHistory.at(-1).result;
-  calculationHistory.push(new Calculation);
-})
+btnEquals.addEventListener("click", () => evalOperator("equals"))
 
 //clear Display and create new Calculation. Either save the last one (if result could be determined) or overwrite, if not
 btnCl.addEventListener("click", () => {
@@ -61,6 +58,14 @@ btnCl.addEventListener("click", () => {
 //Array.at(-1) returns last element of array
 function evalOperator(operation) {
   let currentCalc = calculationHistory.at(-1);
+  if (operation === "equals") {
+    calculationHistory.at(-1).secondOperand = parseFloat(display.innerText);
+    calculationHistory.at(-1).operate();
+    display.innerText = calculationHistory.at(-1).result;
+    calculationHistory.push(new Calculation);
+    return;
+  }
+
   // unsupported cases 
   if (display.innerText === "" || currentCalc.firstOperand !== undefined && currentCalc.secondOperand !== undefined) return;
 
@@ -82,8 +87,5 @@ function add(a, b) { return a + b };
 function subtract(a, b) { return a - b };
 function multiply(a, b) { return a * b; };
 function divide(a, b) { return b === 0 ? "error" : a / b }
-
-let calculationHistory = [];
-calculationHistory.push(new Calculation());
 
 function numberIsValid(num) { return parseFloat(num.toString()) === num }
