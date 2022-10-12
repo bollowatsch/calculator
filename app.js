@@ -24,6 +24,7 @@ for (btn of btnsOperand) btn.addEventListener("click", (e) => {
   display.innerText = display.innerText.concat(e.target.dataset.id);
 });
 
+//choose actions based on keystroke
 document.addEventListener('keydown', (e) => {
   let key = e.key;
   if (Number.isInteger(parseInt(key)) || key === '.') {
@@ -32,30 +33,15 @@ document.addEventListener('keydown', (e) => {
   } else if (key == 'Enter') {
     console.log("Enter")
   } else if (['/', '+', '-', '*'].includes(key)) {
-    console.log(key);
+    if (key === '+') evalOperator('add');
+    if (key === '-') evalOperator('subtract');
+    if (key === '*') evalOperator('multiply');
+    if (key === '/') evalOperator('divide');
   }
 }, false);
 
-//calls function based on name of dataset.id
-//Array.at(-1) returns last element of array
-for (btn of btnsOperator) btn.addEventListener("click", (e) => {
-  let currentCalc = calculationHistory.at(-1);
-  // unsupported cases 
-  if (display.innerText === "" || currentCalc.firstOperand !== undefined && currentCalc.secondOperand !== undefined) return;
 
-  //regular case: single calculation -- save number & operator, clear display
-  else if (currentCalc.firstOperand === undefined && currentCalc.secondOperand === undefined) {
-    calculationHistory.at(-1).firstOperand = parseFloat(display.innerText);
-    calculationHistory.at(-1).operator = e.target.dataset.id;
-    display.innerText = "";
-  } //regular case: chained calculation -- save number & calculate result. use result for next operation and save operator, clear display
-  else if (currentCalc.firstOperand !== undefined && currentCalc.secondOperand === undefined) {
-    calculationHistory.at(-1).secondOperand = parseFloat(display.innerText);
-    calculationHistory.at(-1).operate;
-    calculationHistory.push(new Calculation(calculationHistory.at(-1).result, undefined, e.target.dataset.id));
-    display.innerText = "";
-  }
-})
+for (btn of btnsOperator) btn.addEventListener("click", (e) => evalOperator(e.target.dataset.id));
 
 btnEquals.addEventListener("click", () => {
   calculationHistory.at(-1).secondOperand = parseFloat(display.innerText);
@@ -69,6 +55,28 @@ btnCl.addEventListener("click", () => {
   display.innerText = "";
   calculationHistory[calculationHistory.length - 1].result === undefined ? calculationHistory[calculationHistory.length - 1] = new Calculation() : calculationHistory.push(new Calculation);
 });
+
+//act, depending on given operator +,-,*,/
+//calls function based on name of dataset.id
+//Array.at(-1) returns last element of array
+function evalOperator(operation) {
+  let currentCalc = calculationHistory.at(-1);
+  // unsupported cases 
+  if (display.innerText === "" || currentCalc.firstOperand !== undefined && currentCalc.secondOperand !== undefined) return;
+
+  //regular case: single calculation -- save number & operator, clear display
+  else if (currentCalc.firstOperand === undefined && currentCalc.secondOperand === undefined) {
+    calculationHistory.at(-1).firstOperand = parseFloat(display.innerText);
+    calculationHistory.at(-1).operator = operation;
+    display.innerText = "";
+  } //regular case: chained calculation -- save number & calculate result. use result for next operation and save operator, clear display
+  else if (currentCalc.firstOperand !== undefined && currentCalc.secondOperand === undefined) {
+    calculationHistory.at(-1).secondOperand = parseFloat(display.innerText);
+    calculationHistory.at(-1).operate;
+    calculationHistory.push(new Calculation(calculationHistory.at(-1).result, undefined, operation));
+    display.innerText = "";
+  }
+};
 
 function add(a, b) { return a + b };
 function subtract(a, b) { return a - b };
