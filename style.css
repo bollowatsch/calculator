@@ -29,7 +29,7 @@ h1 {
 .display {
   text-align: right;
   font-size: 30px;
-  background-color: lightblue;
+  background-color: lightcyan;
   border: 2px solid black;
   border-radius: 10px 10px;
   padding: 5px 5px;
@@ -45,7 +45,6 @@ button {
   font-weight: 200;
   aspect-ratio: 1;
   width: 50px;
-  background-color: antiquewhite;
   border-radius: 30% 30%;
   margin: 0.2em 0.2em 0.2em 0.2em;
   transition-duration: .1s;
@@ -54,4 +53,17 @@ button {
 
 button:active {
   transform: scale(1.05);
+}
+
+.btn-operator,
+#btn-cl {
+  background-color: lightsalmon;
+}
+
+.btn-operand {
+  background-color: lightgoldenrodyellow;
+}
+
+#btn-equals {
+  background-color: lightcoral;
 }
